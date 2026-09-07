@@ -4,14 +4,13 @@ body {
     color: #222;
     text-align: center;
     padding: 50px;
-    min-height: 100vh;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
 }
 
+h1 {
+    color: #2599eb;
+}
 footer {
-    margin-top: auto;
+    margin-top: 50px;
     padding: 20px;
     font-size: 14px;
     color: #666;
