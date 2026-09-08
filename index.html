@@ -4,16 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mina nedräkningar</title>
+    <title>The Final Countdown</title>
 
     <style>
         * {
             box-sizing: border-box;
         }
 
+        html,
         body {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
             min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+
             font-family: Arial, sans-serif;
             color: white;
 
@@ -29,27 +40,44 @@
                     transparent 30%
                 ),
                 #080b14;
-
-            padding: 30px 15px;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
-            margin: auto;
+            max-width: 750px;
+
+            margin: 0 auto;
+            padding: 30px 15px;
+
+            text-align: center;
         }
 
-        /* RUBRIK */
+        /* =========================
+           RUBRIK
+           ========================= */
 
         header {
-            text-align: center;
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
             margin-bottom: 40px;
         }
 
         h1 {
             margin: 0;
 
-            font-size: clamp(2rem, 7vw, 4rem);
+            font-size: clamp(
+                2rem,
+                7vw,
+                4rem
+            );
+
+            line-height: 1.1;
+
+            text-align: center;
 
             background:
                 linear-gradient(
@@ -64,34 +92,63 @@
         }
 
         header p {
+            margin: 12px 0 0;
+
             color: #9ca3af;
+
             font-size: 1rem;
+
+            text-align: center;
         }
 
-        /* KORT */
+        /* =========================
+           HÄNDELSER
+           ========================= */
 
         .countdowns {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
             gap: 20px;
         }
+
+        /* =========================
+           KORT
+           ========================= */
 
         .card {
             position: relative;
             overflow: hidden;
 
+            width: 100%;
+            max-width: 650px;
+
             padding: 25px;
 
-            background: rgba(255,255,255,0.07);
+            background:
+                rgba(255,255,255,0.07);
 
-            border: 1px solid rgba(255,255,255,0.12);
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
 
             border-radius: 20px;
 
             backdrop-filter: blur(20px);
 
             box-shadow:
-                0 20px 50px rgba(0,0,0,0.25);
+                0 20px 50px
+                rgba(0,0,0,0.25);
+
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .card::before {
@@ -110,39 +167,65 @@
 
             opacity: 0.25;
 
-            right: -80px;
-            top: -80px;
+            left: 50%;
+            top: -100px;
+
+            transform: translateX(-50%);
+
+            pointer-events: none;
         }
+
+        /* =========================
+           INNEHÅLL
+           ========================= */
 
         .top {
             position: relative;
 
+            width: 100%;
+
             display: flex;
+            flex-direction: column;
+
             align-items: center;
-            justify-content: space-between;
-        }
 
-        .title {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            font-weight: bold;
-        }
+            gap: 8px;
 
-        .date {
-            margin-top: 6px;
-
-            color: #9ca3af;
-
-            font-size: 0.9rem;
+            text-align: center;
         }
 
         .icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
+
+            line-height: 1;
+
+            text-align: center;
         }
 
-        /* TIMER */
+        .title {
+            font-size: 1.4rem;
+
+            font-weight: bold;
+
+            text-align: center;
+        }
+
+        .date {
+            color: #9ca3af;
+
+            font-size: 0.9rem;
+
+            text-align: center;
+        }
+
+        /* =========================
+           TIMER
+           ========================= */
 
         .timer {
             position: relative;
+
+            width: 100%;
 
             display: grid;
 
@@ -155,6 +238,14 @@
         }
 
         .unit {
+            min-width: 0;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
             text-align: center;
 
             background:
@@ -168,11 +259,15 @@
         .number {
             display: block;
 
+            width: 100%;
+
             font-size: clamp(
-                1.3rem,
+                1.4rem,
                 5vw,
                 2.4rem
             );
+
+            line-height: 1;
 
             font-weight: bold;
 
@@ -180,22 +275,28 @@
 
             font-variant-numeric:
                 tabular-nums;
+
+            text-align: center;
         }
 
         .label {
             display: block;
 
-            margin-top: 5px;
+            width: 100%;
+
+            margin-top: 6px;
 
             color: #8f96a3;
 
             font-size: 0.6rem;
 
             text-transform: uppercase;
+
+            text-align: center;
         }
 
         .finished {
-            grid-column: 1 / -1;
+            width: 100%;
 
             text-align: center;
 
@@ -208,38 +309,53 @@
             padding: 20px;
         }
 
+        /* =========================
+           FOOTER
+           ========================= */
+
         footer {
-            text-align: center;
+            width: 100%;
 
             margin-top: 35px;
 
             color: #6b7280;
 
             font-size: 0.8rem;
+
+            text-align: center;
         }
 
-        /* MOBIL */
+        /* =========================
+           MOBIL
+           ========================= */
 
-        @media (max-width: 700px) {
+        @media (max-width: 600px) {
 
-            .countdowns {
-                grid-template-columns: 1fr;
+            .container {
+                padding:
+                    25px 12px;
             }
 
             .card {
-                padding: 20px;
+                padding:
+                    20px 14px;
+            }
+
+            .timer {
+                gap: 5px;
+            }
+
+            .number {
+                font-size: 1.5rem;
             }
 
         }
 
         @media (max-width: 380px) {
 
-            body {
-                padding: 20px 10px;
-            }
-
             .card {
-                padding: 15px;
+                padding:
+                    18px 10px;
             }
 
             .timer {
@@ -247,11 +363,12 @@
             }
 
             .unit {
-                padding: 9px 2px;
+                padding:
+                    9px 2px;
             }
 
             .number {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
             }
 
             .label {
@@ -269,86 +386,18 @@
 
     <header>
         <h1>⏳ Mina nedräkningar</h1>
-        <p>Håll koll på dina viktigaste datum</p>
+
+        <p>
+            Håll koll på dina viktigaste datum
+        </p>
     </header>
 
 
-    <div class="countdowns">
+    <!-- HÄNDELSERNA VISAS UNDER VARANDRA -->
 
-        <!-- NEDRÄKNING 1 -->
-        <div class="card" style="--color: #60a5fa;">
-            <div class="top">
-                <div>
-                    <div class="title" id="title1"></div>
-                    <div class="date" id="date1"></div>
-                </div>
-
-                <div class="icon">🏃‍♀️</div>
-            </div>
-
-            <div class="timer" id="timer1"></div>
-        </div>
-
-
-        <!-- NEDRÄKNING 2 -->
-        <div class="card" style="--color: #22d3ee;">
-            <div class="top">
-                <div>
-                    <div class="title" id="title2"></div>
-                    <div class="date" id="date2"></div>
-                </div>
-
-                <div class="icon">🏃‍♀️</div>
-            </div>
-
-            <div class="timer" id="timer2"></div>
-        </div>
-
-
-        <!-- NEDRÄKNING 3 -->
-        <div class="card" style="--color: #f472b6;">
-            <div class="top">
-                <div>
-                    <div class="title" id="title3"></div>
-                    <div class="date" id="date3"></div>
-                </div>
-
-                <div class="icon">🎂</div>
-            </div>
-
-            <div class="timer" id="timer3"></div>
-        </div>
-
-
-        <!-- NEDRÄKNING 4 -->
-        <div class="card" style="--color: #facc15;">
-            <div class="top">
-                <div>
-                    <div class="title" id="title4"></div>
-                    <div class="date" id="date4"></div>
-                </div>
-
-                <div class="icon">🏖️</div>
-            </div>
-
-            <div class="timer" id="timer4"></div>
-        </div>
-
-
-        <!-- NEDRÄKNING 5 -->
-        <div class="card" style="--color: #4ade80;">
-            <div class="top">
-                <div>
-                    <div class="title" id="title5"></div>
-                    <div class="date" id="date5"></div>
-                </div>
-
-                <div class="icon">🎄</div>
-            </div>
-
-            <div class="timer" id="timer5"></div>
-        </div>
-
+    <div
+        class="countdowns"
+        id="countdowns">
     </div>
 
 
@@ -362,56 +411,69 @@
 <script>
 
 /* =====================================================
-   ⭐ ÄNDRA DINA NEDRÄKNINGAR HÄR ⭐
+   ⭐ ÄNDRA BARA HÄR ⭐
 
-   Ändra bara:
-   - namn
-   - datum
+   Närmaste datum visas automatiskt först.
 
-   Datum skrivs:
-   ÅÅÅÅ-MM-DD
-   Exempel: 2027-12-24
-
-   Om du även vill ange klockslag:
-   ÅÅÅÅ-MM-DDTHH:MM:SS
-   Exempel: 2027-12-24T15:30:00
+   ikon = emoji som visas ovanför händelsen
    ===================================================== */
 
 
 const nedrakningar = [
 
     {
+        namn: "CPH Half",
+        datum: "2026-09-20T09:030:00",
+        ikon: "🏃‍♂️",
+        farg: "#60a5fa"
+    },
+
+    {
+        namn: "Resan",
+        datum: "2026-11-18T12:00:00",
+        ikon: "✈️",
+        farg: "#22d3ee"
+    },
+
+    {
         namn: "Lidingöloppet",
-        datum: "2026-09-26T12:30:00"
-    },
-
-    {
-        namn: "Uppsala marathon",
-        datum: "2026-10-17T09:30:00"
-    },
-
-    {
-        namn: "Födelsedag",
-        datum: "2027-03-20T00:00:00"
+        datum: "2026-09-26T12:30:00",
+        ikon: "🏃‍♂️",
+        farg: "#f472b6"
     },
 
     {
         namn: "Semester",
-        datum: "2027-07-01T00:00:00"
+        datum: "2027-07-01T00:00:00",
+        ikon: "🏖️",
+        farg: "#facc15"
     },
 
     {
         namn: "Julafton",
-        datum: "2027-12-24T00:00:00"
+        datum: "2027-12-24T00:00:00",
+        ikon: "🎄",
+        farg: "#4ade80"
     }
 
 ];
 
 
 /* =====================================================
-   DU BEHÖVER INTE ÄNDRA NÅGOT UNDER DENNA RAD
+   SORTERA EFTER DATUM
+   NÄRMASTE HÄNDELSEN FÖRST
    ===================================================== */
 
+nedrakningar.sort(
+    (a, b) =>
+        new Date(a.datum) -
+        new Date(b.datum)
+);
+
+
+/* =====================================================
+   FORMATERA DATUM
+   ===================================================== */
 
 function formatDate(datum) {
 
@@ -427,139 +489,208 @@ function formatDate(datum) {
 }
 
 
-function visaNedrakningar() {
+/* =====================================================
+   SKAPA HÄNDELSER
+   ===================================================== */
 
-    nedrakningar.forEach((event, index) => {
+function skapaKort() {
 
-        const nr = index + 1;
-
+    const container =
         document.getElementById(
-            "title" + nr
-        ).textContent = event.namn;
+            "countdowns"
+        );
 
-        document.getElementById(
-            "date" + nr
-        ).textContent = formatDate(event.datum);
+    container.innerHTML = "";
 
-    });
+
+    nedrakningar.forEach(
+        (event, index) => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "card";
+
+            card.style.setProperty(
+                "--color",
+                event.farg
+            );
+
+
+            card.innerHTML = `
+
+                <div class="top">
+
+                    <div class="icon">
+                        ${event.ikon}
+                    </div>
+
+                    <div class="title">
+                        ${event.namn}
+                    </div>
+
+                    <div class="date">
+                        ${formatDate(event.datum)}
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="timer"
+                    id="timer-${index}">
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        }
+    );
 
 }
 
+
+/* =====================================================
+   UPPDATERA NEDRÄKNING
+   ===================================================== */
 
 function uppdateraNedrakningar() {
 
     const nu = new Date();
 
-    nedrakningar.forEach((event, index) => {
 
-        const nr = index + 1;
+    nedrakningar.forEach(
+        (event, index) => {
 
-        const mal =
-            new Date(event.datum);
+            const mal =
+                new Date(event.datum);
 
-        const skillnad =
-            mal - nu;
-
-        const timer =
-            document.getElementById(
-                "timer" + nr
-            );
+            const skillnad =
+                mal - nu;
 
 
-        if (skillnad <= 0) {
+            const timer =
+                document.getElementById(
+                    `timer-${index}`
+                );
+
+
+            if (!timer) return;
+
+
+            if (skillnad <= 0) {
+
+                timer.innerHTML = `
+                    <div class="finished">
+                        🎉 Det har hänt!
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const dagar =
+                Math.floor(
+                    skillnad /
+                    (1000 * 60 * 60 * 24)
+                );
+
+
+            const timmar =
+                Math.floor(
+                    (skillnad /
+                    (1000 * 60 * 60)) % 24
+                );
+
+
+            const minuter =
+                Math.floor(
+                    (skillnad /
+                    (1000 * 60)) % 60
+                );
+
+
+            const sekunder =
+                Math.floor(
+                    (skillnad / 1000) % 60
+                );
+
 
             timer.innerHTML = `
-                <div class="finished">
-                    🎉 Det har hänt!
+
+                <div class="unit">
+
+                    <span class="number">
+                        ${dagar}
+                    </span>
+
+                    <span class="label">
+                        Dagar
+                    </span>
+
                 </div>
+
+
+                <div class="unit">
+
+                    <span class="number">
+                        ${String(timmar)
+                            .padStart(2, "0")}
+                    </span>
+
+                    <span class="label">
+                        Timmar
+                    </span>
+
+                </div>
+
+
+                <div class="unit">
+
+                    <span class="number">
+                        ${String(minuter)
+                            .padStart(2, "0")}
+                    </span>
+
+                    <span class="label">
+                        Minuter
+                    </span>
+
+                </div>
+
+
+                <div class="unit">
+
+                    <span class="number">
+                        ${String(sekunder)
+                            .padStart(2, "0")}
+                    </span>
+
+                    <span class="label">
+                        Sekunder
+                    </span>
+
+                </div>
+
             `;
 
-            return;
         }
-
-
-        const dagar =
-            Math.floor(
-                skillnad /
-                (1000 * 60 * 60 * 24)
-            );
-
-
-        const timmar =
-            Math.floor(
-                (skillnad /
-                (1000 * 60 * 60)) % 24
-            );
-
-
-        const minuter =
-            Math.floor(
-                (skillnad /
-                (1000 * 60)) % 60
-            );
-
-
-        const sekunder =
-            Math.floor(
-                (skillnad / 1000) % 60
-            );
-
-
-        timer.innerHTML = `
-
-            <div class="unit">
-                <span class="number">
-                    ${dagar}
-                </span>
-
-                <span class="label">
-                    Dagar
-                </span>
-            </div>
-
-
-            <div class="unit">
-                <span class="number">
-                    ${String(timmar).padStart(2, "0")}
-                </span>
-
-                <span class="label">
-                    Timmar
-                </span>
-            </div>
-
-
-            <div class="unit">
-                <span class="number">
-                    ${String(minuter).padStart(2, "0")}
-                </span>
-
-                <span class="label">
-                    Minuter
-                </span>
-            </div>
-
-
-            <div class="unit">
-                <span class="number">
-                    ${String(sekunder).padStart(2, "0")}
-                </span>
-
-                <span class="label">
-                    Sekunder
-                </span>
-            </div>
-
-        `;
-
-    });
+    );
 
 }
 
 
-visaNedrakningar();
+/* =====================================================
+   START
+   ===================================================== */
+
+skapaKort();
 
 uppdateraNedrakningar();
+
 
 setInterval(
     uppdateraNedrakningar,
