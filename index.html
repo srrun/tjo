@@ -1,19 +1,573 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tjo git</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>Mina nedräkningar</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    #312e81,
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 85%,
+                    #0e7490,
+                    transparent 30%
+                ),
+                #080b14;
+
+            padding: 30px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* RUBRIK */
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            margin: 0;
+
+            font-size: clamp(2rem, 7vw, 4rem);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa,
+                    #22d3ee
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+
+        /* KORT */
+
+        .countdowns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 25px;
+
+            background: rgba(255,255,255,0.07);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            border-radius: 20px;
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: var(--color);
+
+            filter: blur(80px);
+
+            opacity: 0.25;
+
+            right: -80px;
+            top: -80px;
+        }
+
+        .top {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .title {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: bold;
+        }
+
+        .date {
+            margin-top: 6px;
+
+            color: #9ca3af;
+
+            font-size: 0.9rem;
+        }
+
+        .icon {
+            font-size: 2rem;
+        }
+
+        /* TIMER */
+
+        .timer {
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 8px;
+
+            margin-top: 25px;
+        }
+
+        .unit {
+            text-align: center;
+
+            background:
+                rgba(0,0,0,0.25);
+
+            border-radius: 12px;
+
+            padding: 12px 3px;
+        }
+
+        .number {
+            display: block;
+
+            font-size: clamp(
+                1.3rem,
+                5vw,
+                2.4rem
+            );
+
+            font-weight: bold;
+
+            color: var(--color);
+
+            font-variant-numeric:
+                tabular-nums;
+        }
+
+        .label {
+            display: block;
+
+            margin-top: 5px;
+
+            color: #8f96a3;
+
+            font-size: 0.6rem;
+
+            text-transform: uppercase;
+        }
+
+        .finished {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            color: #4ade80;
+
+            font-size: 1.2rem;
+
+            font-weight: bold;
+
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+
+            margin-top: 35px;
+
+            color: #6b7280;
+
+            font-size: 0.8rem;
+        }
+
+        /* MOBIL */
+
+        @media (max-width: 700px) {
+
+            .countdowns {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+
+        @media (max-width: 380px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .timer {
+                gap: 4px;
+            }
+
+            .unit {
+                padding: 9px 2px;
+            }
+
+            .number {
+                font-size: 1.3rem;
+            }
+
+            .label {
+                font-size: 0.5rem;
+            }
+
+        }
+    </style>
 </head>
+
+
 <body>
 
-    <h1>Tjo Hej!</h1>
-    <p>Tjo på GitHub Pages.</p>
+<div class="container">
 
-    <br><br><br><br>
+    <header>
+        <h1>⏳ Mina nedräkningar</h1>
+        <p>Håll koll på dina viktigaste datum</p>
+    </header>
+
+
+    <div class="countdowns">
+
+        <!-- NEDRÄKNING 1 -->
+        <div class="card" style="--color: #60a5fa;">
+            <div class="top">
+                <div>
+                    <div class="title" id="title1"></div>
+                    <div class="date" id="date1"></div>
+                </div>
+
+                <div class="icon">🎆</div>
+            </div>
+
+            <div class="timer" id="timer1"></div>
+        </div>
+
+
+        <!-- NEDRÄKNING 2 -->
+        <div class="card" style="--color: #22d3ee;">
+            <div class="top">
+                <div>
+                    <div class="title" id="title2"></div>
+                    <div class="date" id="date2"></div>
+                </div>
+
+                <div class="icon">✈️</div>
+            </div>
+
+            <div class="timer" id="timer2"></div>
+        </div>
+
+
+        <!-- NEDRÄKNING 3 -->
+        <div class="card" style="--color: #f472b6;">
+            <div class="top">
+                <div>
+                    <div class="title" id="title3"></div>
+                    <div class="date" id="date3"></div>
+                </div>
+
+                <div class="icon">🎂</div>
+            </div>
+
+            <div class="timer" id="timer3"></div>
+        </div>
+
+
+        <!-- NEDRÄKNING 4 -->
+        <div class="card" style="--color: #facc15;">
+            <div class="top">
+                <div>
+                    <div class="title" id="title4"></div>
+                    <div class="date" id="date4"></div>
+                </div>
+
+                <div class="icon">🏖️</div>
+            </div>
+
+            <div class="timer" id="timer4"></div>
+        </div>
+
+
+        <!-- NEDRÄKNING 5 -->
+        <div class="card" style="--color: #4ade80;">
+            <div class="top">
+                <div>
+                    <div class="title" id="title5"></div>
+                    <div class="date" id="date5"></div>
+                </div>
+
+                <div class="icon">🎄</div>
+            </div>
+
+            <div class="timer" id="timer5"></div>
+        </div>
+
+    </div>
+
+
     <footer>
-        <p>&copy; 2026 Tjo. Alla rättigheter förbehållna.</p>
+        Nedräkningarna uppdateras automatiskt varje sekund.
     </footer>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   ⭐ ÄNDRA DINA NEDRÄKNINGAR HÄR ⭐
+
+   Ändra bara:
+   - namn
+   - datum
+
+   Datum skrivs:
+   ÅÅÅÅ-MM-DD
+   Exempel: 2027-12-24
+
+   Om du även vill ange klockslag:
+   ÅÅÅÅ-MM-DDTHH:MM:SS
+   Exempel: 2027-12-24T15:30:00
+   ===================================================== */
+
+
+const nedrakningar = [
+
+    {
+        namn: "Nyår",
+        datum: "2027-01-01T00:00:00"
+    },
+
+    {
+        namn: "Resan",
+        datum: "2027-02-15T12:00:00"
+    },
+
+    {
+        namn: "Födelsedag",
+        datum: "2027-03-20T00:00:00"
+    },
+
+    {
+        namn: "Semester",
+        datum: "2027-07-01T00:00:00"
+    },
+
+    {
+        namn: "Julafton",
+        datum: "2027-12-24T00:00:00"
+    }
+
+];
+
+
+/* =====================================================
+   DU BEHÖVER INTE ÄNDRA NÅGOT UNDER DENNA RAD
+   ===================================================== */
+
+
+function formatDate(datum) {
+
+    return new Date(datum).toLocaleDateString(
+        "sv-SE",
+        {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }
+    );
+
+}
+
+
+function visaNedrakningar() {
+
+    nedrakningar.forEach((event, index) => {
+
+        const nr = index + 1;
+
+        document.getElementById(
+            "title" + nr
+        ).textContent = event.namn;
+
+        document.getElementById(
+            "date" + nr
+        ).textContent = formatDate(event.datum);
+
+    });
+
+}
+
+
+function uppdateraNedrakningar() {
+
+    const nu = new Date();
+
+    nedrakningar.forEach((event, index) => {
+
+        const nr = index + 1;
+
+        const mal =
+            new Date(event.datum);
+
+        const skillnad =
+            mal - nu;
+
+        const timer =
+            document.getElementById(
+                "timer" + nr
+            );
+
+
+        if (skillnad <= 0) {
+
+            timer.innerHTML = `
+                <div class="finished">
+                    🎉 Det har hänt!
+                </div>
+            `;
+
+            return;
+        }
+
+
+        const dagar =
+            Math.floor(
+                skillnad /
+                (1000 * 60 * 60 * 24)
+            );
+
+
+        const timmar =
+            Math.floor(
+                (skillnad /
+                (1000 * 60 * 60)) % 24
+            );
+
+
+        const minuter =
+            Math.floor(
+                (skillnad /
+                (1000 * 60)) % 60
+            );
+
+
+        const sekunder =
+            Math.floor(
+                (skillnad / 1000) % 60
+            );
+
+
+        timer.innerHTML = `
+
+            <div class="unit">
+                <span class="number">
+                    ${dagar}
+                </span>
+
+                <span class="label">
+                    Dagar
+                </span>
+            </div>
+
+
+            <div class="unit">
+                <span class="number">
+                    ${String(timmar).padStart(2, "0")}
+                </span>
+
+                <span class="label">
+                    Timmar
+                </span>
+            </div>
+
+
+            <div class="unit">
+                <span class="number">
+                    ${String(minuter).padStart(2, "0")}
+                </span>
+
+                <span class="label">
+                    Minuter
+                </span>
+            </div>
+
+
+            <div class="unit">
+                <span class="number">
+                    ${String(sekunder).padStart(2, "0")}
+                </span>
+
+                <span class="label">
+                    Sekunder
+                </span>
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+visaNedrakningar();
+
+uppdateraNedrakningar();
+
+setInterval(
+    uppdateraNedrakningar,
+    1000
+);
+
+</script>
+
 </body>
 </html>
